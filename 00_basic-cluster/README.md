@@ -15,10 +15,25 @@ gcloud auth login -q
 ```
 export _common='hogehoge'
 export _project='fugafuga'
+export _region='asia-northeast1'
 ```
 
-## GKE クラスタ作成スクリプト
+## GKE クラスタの作成
 
 ```
-bash operate-basic-cluster.sh create ${_project} ${_common}
+bash operate-basic-cluster.sh create ${_project} ${_common} ${_region}
+```
+
+## GKE との認証
+
+```
+gcloud beta container clusters get-credentials ${_common}-zonal \
+  --zone ${_region}-a \
+  --project ${_project}
+```
+
+## GKE クラスタの削除
+
+```
+bash operate-basic-cluster.sh delete ${_project} ${_common} ${_region}
 ```
