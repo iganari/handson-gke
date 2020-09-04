@@ -46,7 +46,6 @@ create-firewall () {
 check-firewall () {
   gcloud beta compute firewall-rules list \
     --project ${_pj} --filter="name=( \"${_common}-allow-internal-all\" )"
-    # --project ${_pj} | grep ${_common}-allow-internal-all
 }
 
 create-cluster () {
@@ -63,7 +62,8 @@ delete-default-node-pool () {
   gcloud beta container node-pools delete default-pool \
     --cluster ${_common}-zonal \
     --zone ${_region}-a \
-    --project ${_pj} -q
+    --project ${_pj} \
+    -q
 }
 
 add-specific-node-pool () {
@@ -109,17 +109,25 @@ if [ -f $1 ];then
 elif [ $1 = 'create' ]; then
   echo "your type is create"
 
+  create-vpc
   check-vpc
+  create-subnets
   check-subnets
+  create-firewall
   check-firewall
-
+  create-cluster
+  delete-default-node-pool
+  add-specific-node-pool
 
 elif [ $1 = 'delete' ]; then
   echo "your type is delete"
   delete-cluster && sleep 60
   delete-firewall && sleep 60
+  check-firewall
   delete-subnets && sleep 60
+  check-subnets
   delete-vpc && sleep 60
+  check-vpc
 
 else
   echo "Error"
