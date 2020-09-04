@@ -14,10 +14,11 @@ gcloud auth login -q
 
 ```
 export _common='hogehoge'
+export _project='fugafuga'
 ```
 
 ## GKE クラスタ作成スクリプト
 
 ```
-bash operate-basic-cluster.sh create ${_common}
+bash operate-basic-cluster.sh create ${_project} ${_common}
 ```
