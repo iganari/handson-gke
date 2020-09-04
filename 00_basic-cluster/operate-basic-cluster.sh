@@ -5,12 +5,13 @@ set -x
 echo $1 ## create or delete
 echo $2
 echo $3
+echo $4
 
 ## Create VPC Network
 
 export _pj=$(echo $2)
 export _common=$(echo $3)
-export _region='asia-northeast1'
+export _region=$(echo $4)
 
 gcloud beta compute networks create ${_common}-network \
   --subnet-mode=custom \
