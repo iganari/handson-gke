@@ -13,8 +13,8 @@ gcloud auth login -q
 ## 環境変数を入れる
 
 ```
-export _common='hogehoge'
-export _project='fugafuga'
+export _project='Your GCP Project ID'
+export _common='handson-gke'
 export _region='asia-northeast1'
 ```
 
