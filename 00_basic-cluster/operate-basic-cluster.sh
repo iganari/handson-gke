@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 echo $1 ## create or delete
 echo $2
 echo $3
@@ -36,7 +38,7 @@ gcloud beta container clusters create ${_common}-zonal \
 gcloud beta container node-pools delete default-pool \
   --cluster ${_common}-zonal \
   --zone ${_region}-a \
-  --project ${_pj}
+  --project ${_pj} -q
 
 gcloud beta container node-pools create ${_common}-zonal-nodepool \
   --cluster ${_common}-zonal \
