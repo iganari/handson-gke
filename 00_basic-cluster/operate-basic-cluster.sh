@@ -49,28 +49,58 @@ check-firewall () {
     # --project ${_pj} | grep ${_common}-allow-internal-all
 }
 
+create-cluster () {
+  gcloud beta container clusters create ${_common}-zonal \
+    --network ${_common}-network \
+    --subnetwork ${_common}-subnets \
+    --zone ${_region}-a \
+    --num-nodes 3 \
+    --preemptible \
+    --project ${_pj}
+}
 
-# gcloud beta container clusters create ${_common}-zonal \
-#   --network ${_common}-network \
-#   --subnetwork ${_common}-subnets \
-#   --zone ${_region}-a \
-#   --num-nodes 3 \
-#   --preemptible \
-#   --project ${_pj}
-# 
-# gcloud beta container node-pools delete default-pool \
-#   --cluster ${_common}-zonal \
-#   --zone ${_region}-a \
-#   --project ${_pj} -q
-# 
-# gcloud beta container node-pools create ${_common}-zonal-nodepool \
-#   --cluster ${_common}-zonal \
-#   --zone ${_region}-a \
-#   --num-nodes 3 \
-#   --preemptible \
-#   --project ${_pj}
-# 
+delete-default-node-pool () {
+  gcloud beta container node-pools delete default-pool \
+    --cluster ${_common}-zonal \
+    --zone ${_region}-a \
+    --project ${_pj} -q
+}
 
+add-specific-node-pool () {
+  gcloud beta container node-pools create ${_common}-zonal-nodepool \
+    --cluster ${_common}-zonal \
+    --zone ${_region}-a \
+    --num-nodes 3 \
+    --preemptible \
+    --project ${_pj}
+}
+
+
+delete-cluster () {
+  gcloud beta container clusters delete ${_common}-zonal \
+    --zone ${_region}-a \
+    --project ${_pj} \
+    -q
+}
+
+delete-firewall () {
+  gcloud beta compute firewall-rules delete ${_common}-allow-internal-all \
+    --project ${_pj} \
+    -q
+}
+
+delete-subnets () {
+  gcloud beta compute networks subnets delete ${_common}-subnets \
+    --region ${_region} \
+    --project ${_pj} \
+    -q
+}
+
+delete-vpc () {
+  gcloud beta compute networks delete ${_common}-network \
+    --project ${_pj} \
+    -q
+}
 
 if [ -f $1 ];then
   echo "No Argument"
@@ -86,6 +116,10 @@ elif [ $1 = 'create' ]; then
 
 elif [ $1 = 'delete' ]; then
   echo "your type is delete"
+  delete-cluster && sleep 60
+  delete-firewall && sleep 60
+  delete-subnets && sleep 60
+  delete-vpc && sleep 60
 
 else
   echo "Error"
