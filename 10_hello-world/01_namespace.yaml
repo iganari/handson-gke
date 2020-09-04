@@ -10,9 +10,9 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hello-world-golang
+  name: hello-world-go
   labels:
-    name: hello-world-golang
+    name: hello-world-go
 
 ---
 
