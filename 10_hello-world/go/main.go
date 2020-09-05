@@ -24,6 +24,7 @@ import (
 	"net"
 	"strings"
 	"os"
+    "time"
 )
 
 func main() {
@@ -50,6 +51,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 	host, _ := os.Hostname()
 	addrs, err := net.LookupHost(host)
 	ipaddresses := ""
+	time, _ := time.Now()
 	
 	if err == nil {
 		ipaddresses = strings.Join(addrs, " ")
@@ -59,5 +61,6 @@ func echo(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Version: 1.0.0\n")
 	fmt.Fprintf(w, "Hostname: %s\n", host)
 	fmt.Fprintf(w, "Host ip-address(es): %s\n", ipaddresses)
+	fmt.Fprintf(w, "Current time: %s\n", time)
 }
 // [END all]
