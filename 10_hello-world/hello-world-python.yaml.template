@@ -29,6 +29,17 @@ spec:
 
 ---
 
-
-
-
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-service
+  namespace: hello-world-python
+  labels:
+    app: python
+spec:
+  type: LoadBalancer
+  selector:
+    app: python
+  ports:
+    - port: 80
+      targetPort: 8000
