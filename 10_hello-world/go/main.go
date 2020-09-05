@@ -51,7 +51,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 	host, _ := os.Hostname()
 	addrs, err := net.LookupHost(host)
 	ipaddresses := ""
-	time, _ := time.Now()
+	time := time.Now()
 	
 	if err == nil {
 		ipaddresses = strings.Join(addrs, " ")
