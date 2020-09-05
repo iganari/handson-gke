@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: Namespacce
-metadata:
-  name: hello-world-go
-  labels:
-    name: hello-world=-go
