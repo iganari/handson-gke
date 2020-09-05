@@ -1,11 +1,11 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: hello-world-python
-  labels:
-    name: hello-world-python
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: hello-world-python
+#   labels:
+#     name: hello-world-python
 
----
+# ---
 
 # apiVersion: v1
 # kind: Namespace
@@ -14,7 +14,7 @@ metadata:
 #   labels:
 #     name: hello-world-go
 
----
+# ---
 
 apiVersion: v1
 kind: Namespace

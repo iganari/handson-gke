@@ -26,9 +26,14 @@ gcloud auth login -q
 
 ## Deploy Image for Container Registry
 
++ Google  Container Registry の認証
+
 ```
 gcloud auth configure-docker
 ```
+
++ go 用の Container Image を Push する
+
 ```
 cd go
 
@@ -37,13 +42,15 @@ docker push gcr.io/${_project}/handson-gke_hello-world-go:v1
 
 cd -
 ```
+
++ Python 用の Container Image を Push する
+
 ```
 cd python
-```
-```
-gcloud hogehoge
-```
-```
+
+docker build . --tag gcr.io/${_project}/handson-gke_hello-world-python:v1
+docker push gcr.io/${_project}/handson-gke_hello-world-python:v1
+
 cd -
 ```
 
@@ -82,9 +89,14 @@ sed "s/YOUR_PROJECT/${_project}/g" hello-world-go.yaml.template > hello-world-go
 kubectl create -f hello-world-go.yaml
 ```
 
-## WIP Create Namespace
+## Create Python
 
-WIP
++ Create YAML 
+
+```
+sed "s/YOUR_PROJECT/${_project}/g" hello-world-python.yaml.template > hello-world-python.yaml
+```
+
 
 ## Create Deployment
 
