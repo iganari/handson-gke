@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hello-world-python
+  labels:
+    app: hello-world-python
+
+---
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: python-deployment
+  namespace: hello-world-python
+  labels:
+    app: python
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      containers:
+      - name: python-app
+        image: gcr.io/YOUR_PROJECT/handson-gke_hello-world-python:v1
+        ports:
+        - containerPort: 5000
+
+---
+
+
+
+
