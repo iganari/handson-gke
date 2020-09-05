@@ -7,12 +7,12 @@ metadata:
 
 ---
 
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: hello-world-go
-  labels:
-    name: hello-world-go
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: hello-world-go
+#   labels:
+#     name: hello-world-go
 
 ---
 
