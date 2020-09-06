@@ -25,5 +25,25 @@ spec:
       - name: mix-go-app
         image: gcr.io/YOUR_PROJECT/handson-gke_hello-world-go:v1
         ports:
+        - containerPort: 8000
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mix-python-deployment
+  namespace: hello-world-mix
+  labels:
+    app: mix
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: mix
+    spec:
+      containers:
+      - name: mix-python-app
+        image: gcr.io/YOUR_PROJECT/handson-gke_hello-world-python:v1
+        ports:
         - containerPort: 5000
 
