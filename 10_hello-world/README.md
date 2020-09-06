@@ -101,6 +101,19 @@ sed "s/YOUR_PROJECT/${_project}/g" hello-world-python.yaml.template > hello-worl
 kubectl create -f hello-world-python.yaml
 ```
 
+## Create Mix
+
++ Create YAML 
+
+```
+sed "s/YOUR_PROJECT/${_project}/g" hello-world-mix.yaml.template > hello-world-mix.yaml
+```
+
+```
+kubectl create -f hello-world-mix.yaml
+```
+
+
 
 ## Create Deployment
 
