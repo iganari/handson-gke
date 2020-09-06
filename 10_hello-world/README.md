@@ -123,8 +123,55 @@ kubectl create -f hello-world-mix.yaml
 
 ## Check Browser
 
-WIP
++ Check Service on hello-world-go
 
+```
+kubectl get service --namespace hello-world-go
+```
+```
+### Ex.
+
+# kubectl get service --namespace hello-world-go
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)        AGE
+go-service   LoadBalancer   10.251.243.56   34.85.37.228   80:30068/TCP   66m
+```
+
+![](./img/hello-world-go-01.png)
+
+
++ Check Service on hello-world-python
+
+```
+kubectl get service --namespace hello-world-python
+```
+```
+### Ex.
+
+# kubectl get service --namespace hello-world-python
+NAME             TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)        AGE
+python-service   LoadBalancer   10.251.244.194   35.243.127.218   80:31465/TCP   65m
+```
+
+![](./img/hello-world-python-01.png)
+![](./img/hello-world-python-02.png)
+
++ Check Ingress on hello-world-mix
+
+```
+kubectl get ingress --namespace hello-world-mix
+```
+```
+### Ex.
+
+# kubectl get ingress --namespace hello-world-mix
+NAME          HOSTS   ADDRESS       PORTS   AGE
+mix-ingress   *       34.120.35.4   80      64m
+```
+
+![](./img/hello-world-mix-01.png)
+![](./img/hello-world-mix-02.png)
+![](./img/hello-world-mix-03.png)
+![](./img/hello-world-mix-04.png)
 
 ## Delete K8s Resource
 
