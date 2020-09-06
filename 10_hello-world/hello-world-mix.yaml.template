@@ -84,3 +84,23 @@ spec:
   - name: http-python
     port: 5080
     targetPort: 5000
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mix-ingress
+  namespace: hello-world-mix
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "ingress"
+  labels:
+    app: mix
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /go
+        backend:
+          serviceName: mix-go
+          servicePort: 8080
