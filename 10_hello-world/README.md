@@ -97,6 +97,10 @@ kubectl create -f hello-world-go.yaml
 sed "s/YOUR_PROJECT/${_project}/g" hello-world-python.yaml.template > hello-world-python.yaml
 ```
 
+```
+kubectl create -f hello-world-python.yaml
+```
+
 
 ## Create Deployment
 
@@ -112,10 +116,11 @@ WIP
 
 ## Delete K8s Resource
 
-+ Delete Namespace
++ Delete 
 
 ```
 kubectl delete -f hello-world-go.yaml
+kubectl delete -f hello-world-python.yaml
 ```
 
 ## Delete Container Registry
@@ -124,6 +129,8 @@ kubectl delete -f hello-world-go.yaml
 gcloud beta container images list --project ${_project}
 
 gcloud beta container images delete gcr.io/${_project}/handson-gke_hello-world-go:v1 --project ${_project}
+
+gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_hello-world-python:v1  --project ${_project}
 ```
 
 ## Delete GKE Cluster
