@@ -102,5 +102,13 @@ spec:
       paths:
       - path: /go
         backend:
-          serviceName: mix-python-service
+          serviceName: mix-go-service
           servicePort: 8080
+      - path: /py
+        backend:
+          serviceName: mix-python-service
+          servicePort: 5080
+      - path: /*
+        backend:
+          serviceName: mix-python-service
+          servicePort: 5080
