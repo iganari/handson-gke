@@ -26,6 +26,10 @@ gcloud components install kubectl -q
 詳しくは以下を参照
 
 + gcloud
-  + https://github.com/iganari/package-gcp/tree/master/gcloud
+  + 独自にまとめているもの
+    + https://github.com/iganari/package-gcp/tree/master/gcloud
 + kubectl
-  + https://github.com/iganari/package-kubernetes/tree/master/k8s_cmd
+  + 公式リファレンス
+    + https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+  + 独自にまとめているもの
+    + https://github.com/iganari/package-kubernetes/tree/master/k8s_cmd
