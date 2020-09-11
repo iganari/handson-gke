@@ -207,5 +207,25 @@ bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_project} ${_common} 
 
 ## Advansed
 
-+ GKE
-  + node を drain 後に外す > node 削除 > Pod の再配置
+### Q1. 負荷試験でどこまで耐えられるか見る
+
+たとえば、 Apache Bench を用いて、 Pod が正常にレスポンスを返す CPU, memory を算出する
+
+### Q2. CPU, Memmory の Limit を設定
+
+Q1 の情報を元に、deployment の CPU, Memmory の Limit を設定する 
+
+### Q3. pod のオートスケールを設定
+
+pod のオートスケールを設定し、負荷を掛け、意図したとおりにスケールアップするか確認する
+
+場合に応じて、node のオートスケールも設定する
+
+## memo
+
+
+node を drain 後に外す > node 削除 > Pod の再配置
+
+
+https://elishatan.com/
+https://www.elishatan.com/
