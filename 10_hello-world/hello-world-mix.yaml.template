@@ -93,7 +93,7 @@ metadata:
   name: mix-ingress
   namespace: hello-world-mix
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "ingress"
+    kubernetes.io/ingress.global-static-ip-name: "ingress"    # Fix IP Address using Static IP Address
   labels:
     app: mix
 spec:
