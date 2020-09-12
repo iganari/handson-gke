@@ -6,10 +6,24 @@
 
 目次
 
-+ Hands On
-  + WIP
-+ Advansed
-  + WIP
++ [Hands On](./README.md#hands-on)
+  + [Prepare Env](./README.md#prepare-env)
+  + [Auth GCP](./README.md#auth-gcp)
+  + [Deploy Image for Container Registry](./README.md#deploy-image-for-container-registry)
+  + [Create GKE Cluster](./README.md#create-gke-cluster)
+  + [Auth GKE Cluster](./README.md#auth-gke-cluster)
+  + [Create Go Resource](./README.md#create-go-resource)
+  + [Create Python Resource](./README.md#create-python-resource)
+  + [Create Mix Resource](./README.md#create-mix-resource)
+  + [Check Browser](./README.md#check-browser)
++ [Advansed](./README.md#advansed)
+  + [HTTPS を設定してみよう](./README.md#q1-https-を設定してみよう)
++ [Delete Resource](./README.md#delete-resource)
+  + [Delete K8s Resource](./README.md#delete-k8s-resource)
+  + [Delete Container Registry](./README.md#delete-container-registry)
+  + [Delete GKE Cluster](./README.md#delete-gke-cluster)
+
+# Hands On
 
 ## Prepare Env
 
@@ -25,8 +39,6 @@ export _project='Your GCP Project ID'
 export _common='handson-gke'
 export _region='asia-northeast1'
 ```
-
-# Hands On
 
 ## Auth GCP
 
@@ -182,37 +194,7 @@ mix-ingress   *       34.120.35.4   80      64m
 ![](./img/hello-world-mix-03.png)
 ![](./img/hello-world-mix-04.png)
 
-## Delete K8s Resource
-
-+ Delete 
-
-```
-kubectl delete -f hello-world-go.yaml
-kubectl delete -f hello-world-python.yaml
-kubectl delete -f hello-world-mix.yaml
-```
-
-## Delete Container Registry
-
-+ コンテナレジストリの確認
-
-```
-gcloud beta container images list --project ${_project}
-```
-
-+ WIP
-
-```
-gcloud beta container images delete gcr.io/${_project}/handson-gke_hello-world-go:v1 --project ${_project}
-
-gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_hello-world-python:v1 --project ${_project}
-```
-
-## Delete GKE Cluster
-
-```
-bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_project} ${_common} ${_region}
-```
+---> Web Browser で確認出来れば完了です!! :)
 
 # Advansed
 
@@ -244,3 +226,36 @@ pod のオートスケールを設定し、負荷を掛け、意図したとお�
 
 回答例 -> WIP
 
+# Delete Resource
+
+## Delete K8s Resource
+
++ Delete 
+
+```
+kubectl delete -f hello-world-go.yaml
+kubectl delete -f hello-world-python.yaml
+kubectl delete -f hello-world-mix.yaml
+```
+
+## Delete Container Registry
+
++ コンテナレジストリの確認
+
+```
+gcloud beta container images list --project ${_project}
+```
+
++ コンテナレジストリの中のイメージを削除
+
+```
+gcloud beta container images delete gcr.io/${_project}/handson-gke_hello-world-go:v1 --project ${_project}
+
+gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_hello-world-python:v1 --project ${_project}
+```
+
+## Delete GKE Cluster
+
+```
+bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_project} ${_common} ${_region}
+```
