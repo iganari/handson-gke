@@ -170,3 +170,8 @@ openssl s_client -connect hello-world-mix.hejda.org:443 -showcerts < /dev/null 2
 + 証明書の確認
 
 ![](./img/answer-04_03.png)
+
+## まとめ
+
+Have fan !! :)
+ 
