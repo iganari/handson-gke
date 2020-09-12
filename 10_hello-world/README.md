@@ -2,9 +2,30 @@
 
 ## 概要
 
-```
-hogehoge
-```
++ namespace を作成し、 Namespace 毎に違うアプリケーションを実行してみる
+
+目次
+
++ [Hands On](./README.md#hands-on)
+  + [Prepare Env](./README.md#prepare-env)
+  + [Auth GCP](./README.md#auth-gcp)
+  + [Deploy Image for Container Registry](./README.md#deploy-image-for-container-registry)
+  + [Create GKE Cluster](./README.md#create-gke-cluster)
+  + [Auth GKE Cluster](./README.md#auth-gke-cluster)
+  + [Create Go Resource](./README.md#create-go-resource)
+  + [Create Python Resource](./README.md#create-python-resource)
+  + [Create Mix Resource](./README.md#create-mix-resource)
+  + [Check Browser](./README.md#check-browser)
++ [Advansed](./README.md#advansed)
+  + [HTTPS を設定してみよう](./README.md#q1-https-を設定してみよう)
++ [Delete Resource](./README.md#delete-resource)
+  + [Delete K8s Resource](./README.md#delete-k8s-resource)
+  + [Delete Container Registry](./README.md#delete-container-registry)
+  + [Delete GKE Cluster](./README.md#delete-gke-cluster)
+
+# Hands On
+
+## Prepare Env
 
 + 以下のクラスタを作成したとする
   + Cluster name = `handson-gke`
@@ -173,6 +194,40 @@ mix-ingress   *       34.120.35.4   80      64m
 ![](./img/hello-world-mix-03.png)
 ![](./img/hello-world-mix-04.png)
 
+---> Web Browser で確認出来れば完了です!! :)
+
+# Advansed
+
+## Q1. HTTPS を設定してみよう
+
+Managed Certificate を使用して、 HTTPS で表示出来るようにしましょう
+
+※ ドメインは別途自分で用意する必要があります。
+
+回答例 -> [answer-01](./advansed/answer-01.md)
+
+## [WIP] Q2. 負荷試験でどこまで耐えられるか見る
+
+たとえば、 Apache Bench を用いて、 Pod が正常にレスポンスを返す CPU, memory を算出する
+
+回答例 -> WIP
+
+## [WIP] Q3. CPU, Memmory の Limit を設定
+
+Q1 の情報を元に、deployment の CPU, Memmory の Limit を設定する 
+
+回答例 -> WIP
+
+## [WIP] Q4. pod のオートスケールを設定
+
+pod のオートスケールを設定し、負荷を掛け、意図したとおりにスケールアップするか確認する
+
+場合に応じて、node のオートスケールも設定する
+
+回答例 -> WIP
+
+# Delete Resource
+
 ## Delete K8s Resource
 
 + Delete 
@@ -191,7 +246,7 @@ kubectl delete -f hello-world-mix.yaml
 gcloud beta container images list --project ${_project}
 ```
 
-+ WIP
++ コンテナレジストリの中のイメージを削除
 
 ```
 gcloud beta container images delete gcr.io/${_project}/handson-gke_hello-world-go:v1 --project ${_project}
@@ -204,33 +259,3 @@ gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_he
 ```
 bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_project} ${_common} ${_region}
 ```
-
-## Advansed
-
-### Q1. 負荷試験でどこまで耐えられるか見る
-
-たとえば、 Apache Bench を用いて、 Pod が正常にレスポンスを返す CPU, memory を算出する
-
-回答例 -> WIP
-
-### Q2. CPU, Memmory の Limit を設定
-
-Q1 の情報を元に、deployment の CPU, Memmory の Limit を設定する 
-
-回答例 -> WIP
-
-### Q3. pod のオートスケールを設定
-
-pod のオートスケールを設定し、負荷を掛け、意図したとおりにスケールアップするか確認する
-
-場合に応じて、node のオートスケールも設定する
-
-回答例 -> WIP
-
-### Q4. HTTPS を設定してみよう
-
-Managed Certificate を使用して、 HTTPS で表示出来るようにしましょう
-
-※ ドメインは別途自分で用意する必要があります。
-
-回答例 -> [answer-04](./advansed/answer-04.md)

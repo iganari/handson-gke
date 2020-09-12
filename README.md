@@ -6,14 +6,17 @@
 
 ## 先にインストールしておきたいコマンド
 
-+ gcloud
++ 公式ドキュメント
+  + https://cloud.google.com/sdk/install?hl=en
 
-```
-WIP
-```
+### [gcloud] install
 
++ Debian and Ubuntu only
+  + https://cloud.google.com/sdk/docs/downloads-apt-get?hl=en
++ Red Hat and CentOS
+  + https://cloud.google.com/sdk/docs/downloads-yum?hl=en
 
-+ Update
+### [gcloud] Update
 
 ```
 gcloud components install beta -q &&\
