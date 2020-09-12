@@ -163,5 +163,5 @@ openssl s_client -connect hello-world-mix.hejda.org:443 -showcerts < /dev/null 2
 
 ## Web Browser で確認
 
-![](./img/answer-04_02.pmg)
-![](./img/answer-04_03.pmg)
+![](./img/answer-04_02.png)
+![](./img/answer-04_03.png)
