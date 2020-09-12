@@ -2,9 +2,16 @@
 
 ## 概要
 
-```
-hogehoge
-```
++ namespace を作成し、 Namespace 毎に違うアプリケーションを実行してみる
+
+目次
+
++ Hands On
+  + WIP
++ Advansed
+  + WIP
+
+## Prepare Env
 
 + 以下のクラスタを作成したとする
   + Cluster name = `handson-gke`
@@ -18,6 +25,8 @@ export _project='Your GCP Project ID'
 export _common='handson-gke'
 export _region='asia-northeast1'
 ```
+
+# Hands On
 
 ## Auth GCP
 
@@ -205,9 +214,9 @@ gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_he
 bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_project} ${_common} ${_region}
 ```
 
-## Advansed
+# Advansed
 
-### Q1. HTTPS を設定してみよう
+## Q1. HTTPS を設定してみよう
 
 Managed Certificate を使用して、 HTTPS で表示出来るようにしましょう
 
@@ -215,19 +224,19 @@ Managed Certificate を使用して、 HTTPS で表示出来るようにしま�
 
 回答例 -> [answer-01](./advansed/answer-01.md)
 
-### [WIP] Q2. 負荷試験でどこまで耐えられるか見る
+## [WIP] Q2. 負荷試験でどこまで耐えられるか見る
 
 たとえば、 Apache Bench を用いて、 Pod が正常にレスポンスを返す CPU, memory を算出する
 
 回答例 -> WIP
 
-### [WIP] Q3. CPU, Memmory の Limit を設定
+## [WIP] Q3. CPU, Memmory の Limit を設定
 
 Q1 の情報を元に、deployment の CPU, Memmory の Limit を設定する 
 
 回答例 -> WIP
 
-### [WIP] Q4. pod のオートスケールを設定
+## [WIP] Q4. pod のオートスケールを設定
 
 pod のオートスケールを設定し、負荷を掛け、意図したとおりにスケールアップするか確認する
 
