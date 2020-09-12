@@ -163,5 +163,10 @@ openssl s_client -connect hello-world-mix.hejda.org:443 -showcerts < /dev/null 2
 
 ## Web Browser で確認
 
++ トップページを確認
+
 ![](./img/answer-04_02.png)
+
++ 証明書の確認
+
 ![](./img/answer-04_03.png)
