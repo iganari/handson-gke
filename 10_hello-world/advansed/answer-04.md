@@ -119,7 +119,8 @@ metadata:
   name: mix-ingress
   namespace: hello-world-mix
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "ingress"
+    kubernetes.io/ingress.global-static-ip-name: "ingress"    # Fix IP Address using Static IP Address
+    kubernetes.io/ingress.allow-http: "false"                 # Block if coming via http
   labels:
     app: mix
 spec:
