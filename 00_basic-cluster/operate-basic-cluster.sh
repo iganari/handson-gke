@@ -2,10 +2,14 @@
 
 # set -x
 
+### Usage Example
+# bash operate-basic-cluster.sh {operation} {GCP Project ID} {Common Value} {Region}
+
 # echo $1 ## create or delete
 # echo $2 ## GCP Project ID
 # echo $3 ## Common Value
 # echo $4 ## Region
+
 
 ## Create VPC Network
 
@@ -102,11 +106,17 @@ delete-vpc () {
     -q
 }
 
-if [ -f $1 ];then
-  echo "No Argument"
-  exit 1
 
-elif [ $1 = 'create' ]; then
+### Check Args
+if [ "$#" = '4' ]; then
+  :
+else
+  echo "Your usage is wrong :("
+  exit 1
+fi
+
+### Operation
+if [ $1 = 'create' ]; then
   echo "your type is create"
 
   create-vpc
@@ -118,9 +128,11 @@ elif [ $1 = 'create' ]; then
   create-cluster
   delete-default-node-pool
   add-specific-node-pool
+  exit 0
 
 elif [ $1 = 'delete' ]; then
   echo "your type is delete"
+
   delete-cluster && sleep 60
   delete-firewall && sleep 60
   check-firewall
@@ -128,8 +140,9 @@ elif [ $1 = 'delete' ]; then
   check-subnets
   delete-vpc && sleep 60
   check-vpc
+  exit 0
 
 else
   echo "Error"
-
+  exit 1
 fi
