@@ -18,6 +18,16 @@ export _common='handson-gke'
 export _region='asia-northeast1'
 ```
 
+## [WIP] Prepare API
+
++ Enable API on Project
+
+```
+gcloud config set project ${_project}
+gcloud beta services enable hogehoge.googleapis.com
+```
+
+
 ## GKE クラスタの作成
 
 ```
