@@ -119,8 +119,8 @@ gcloud beta builds triggers create cloud-source-repositories \
   --repo ${_repo_name} \
   --name "gke-scale-in" \
   --branch-pattern "^master$" \
-  --build-config 01_batch-system/cloudbuild_gke-scale.yaml \
-  --substitutions _SCALE=in,_NUM_NODE=0,_PROJCT_ID=${_project},_CLUSTER="${_common}-zonal",_ZONE="${_region}-a",_NODE_POOL="${_common}-zonal-nodepool" \
+  --build-config 01_batch-system/builds/cloudbuild_gke-scale.yaml \
+  --substitutions _NUM_NODE=0,_PROJCT_ID=${_project},_CLUSTER="${_common}-zonal",_ZONE="${_region}-a",_NODE_POOL="${_common}-zonal-nodepool" \
   --project ${_project}
 ```
 
@@ -131,8 +131,8 @@ gcloud beta builds triggers create cloud-source-repositories \
   --repo ${_repo_name} \
   --name "gke-scale-out" \
   --branch-pattern "^master$" \
-  --build-config 01_batch-system/cloudbuild_gke-scale.yaml \
-  --substitutions _SCALE=out,_NUM_NODE=1,_PROJCT_ID=${_project},_CLUSTER="${_common}-zonal",_ZONE="${_region}-a",_NODE_POOL="${_common}-zonal-nodepool" \
+  --build-config 01_batch-system/builds/cloudbuild_gke-scale.yaml \
+  --substitutions _NUM_NODE=1,_PROJCT_ID=${_project},_CLUSTER="${_common}-zonal",_ZONE="${_region}-a",_NODE_POOL="${_common}-zonal-nodepool" \
   --project ${_project}
 ```
 
