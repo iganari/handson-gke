@@ -1,6 +1,6 @@
 steps:
   - id: "GKE Node Operation"
-  - name: 'gcr.io/cloud-builders/gcloud'
+    name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: bash
     args:
       - -c
