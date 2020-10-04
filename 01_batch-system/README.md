@@ -37,6 +37,8 @@ bash ../00_basic-cluster/operate-basic-cluster.sh create ${_project} ${_common} 
 gcloud config set project ${_project}
 gcloud beta services enable sourcerepo.googleapis.com
 gcloud beta services enable cloudbuild.googleapis.com
+gcloud beta services enable cloudscheduler.googleapis.com
+gcloud beta services enable appengine.googleapis.com
 ```
 
 ## Add Permission to Service Account of Cloud build
@@ -143,15 +145,38 @@ gcloud beta builds triggers run gke-scale-in  --branch master
 gcloud beta builds triggers run gke-scale-out --branch master
 ```
 
-## Cloud Fucntions の作成
+## Pub/Sub の Topic を作成
 
-WIP
++ topic の作成
 
-## Pub/Sub の作成
+```
+export _topic_name='gke-scale'
 
-WIP
+gcloud pubsub topics create ${_topic_name} --project ${_project}
+```
 
 ## Cloud Scheduler の作成と実行
 
 WIP
+
+```
+gcloud beta scheduler jobs create pubsub gke_node_scalse_in \
+  --description 'GKE node Scale In' \
+  --schedule '0 22 * * *' \
+  --time-zone 'Asia/Tokyo' \
+  --topic "projects/${_project}/topics/${_topic_name}" \
+  --message-body 'GKE node Scale In' \
+  --attributes 'foo=bar' \
+  --project ${_project}
+```
+
+
+
+
+
+## Cloud Fucntions の作成
+
+WIP
+
+
 
