@@ -6,8 +6,8 @@
  */
 var googleapis = require("googleapis");
 var request = require("request");
-var APIURL = "https://cloudbuild.googleapis.com/v1/projects/avex-adg-webformbackend-dev/triggers/5f819b55-172a-4776-a731-afb36c5c5eda:run"
-exports.helloPubSub = (event, context) => {
+// var APIURL = "https://cloudbuild.googleapis.com/v1/projects/YOUR_GCP_PJ_ID/triggers/YOUR_CLOUD_BUUILD_TRIGGER_ID:run"
+exports.gke_node_scalse = (event, context) => {
   const message = event.data
     ? Buffer.from(event.data, 'base64').toString()
     : 'update start';
@@ -16,7 +16,7 @@ exports.helloPubSub = (event, context) => {
     const token = await googleapis.google.auth.getAccessToken();
     console.log(token);
     var options = {
-      url: APIURL,
+      url: "https://cloudbuild.googleapis.com/v1/projects/" + event.attributes._gcp_pj_id + "/triggers/" + event.attributes._trigger_id + ":run",
       method: 'POST',
       headers: {
         Authorization: ' Bearer ' + token

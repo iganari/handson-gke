@@ -145,6 +145,21 @@ gcloud beta builds triggers run gke-scale-in  --branch master
 gcloud beta builds triggers run gke-scale-out --branch master
 ```
 
+## Cloud Build の Trigger の ID を調べる
+
++ Trigger `gke-scale-in` の ID を調べる
+
+```
+export _scale_in_id=$(gcloud beta builds triggers describe gke-scale-in --project ${_project} | grep id | awk '{print $2}')
+```
+
++ Trigger `gke-scale-out` の ID を調べる
+
+```
+export scale_out_id=$(gcloud beta builds triggers describe gke-scale-out --project ${_project} | grep id | awk '{print $2}')
+```
+
+
 ## Pub/Sub の Topic を作成
 
 + topic の作成
@@ -155,6 +170,19 @@ export _topic_name='gke-scale'
 gcloud pubsub topics create ${_topic_name} --project ${_project}
 ```
 
+## Cloud Fucntions の作成
+
+```
+gcloud beta functions deploy gke_node_scalse \
+  --source=./functions \
+  --entry-point=gke_node_scalse \
+  --runtime=nodejs10 \
+  --trigger-topic="${_topic_name}" \
+  --region ${_region} \
+  --project ${_project}
+```
+
+
 ## Cloud Scheduler の作成と実行
 
 WIP
@@ -162,21 +190,21 @@ WIP
 ```
 gcloud beta scheduler jobs create pubsub gke_node_scalse_in \
   --description 'GKE node Scale In' \
-  --schedule '0 22 * * *' \
+  --schedule '0 20 * * *' \
   --time-zone 'Asia/Tokyo' \
   --topic "projects/${_project}/topics/${_topic_name}" \
   --message-body 'GKE node Scale In' \
-  --attributes 'foo=bar' \
+  --attributes "_gcp_pj_id=${_project},_trigger_id=${_scale_in_id}" \
   --project ${_project}
 ```
 
-
-
-
-
-## Cloud Fucntions の作成
-
-WIP
-
-
-
+```
+gcloud beta scheduler jobs create pubsub gke_node_scalse_out \
+  --description 'GKE node Scale Out' \
+  --schedule '0 8 * * *' \
+  --time-zone 'Asia/Tokyo' \
+  --topic "projects/${_project}/topics/${_topic_name}" \
+  --message-body 'GKE node Scale Out' \
+  --attributes "_gcp_pj_id=${_project},_trigger_id=${_scale_out_id}" \
+  --project ${_project}
+```
