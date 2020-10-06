@@ -1,19 +1,24 @@
-# batch system
+# Batch System
 
-:warning: WIP
+## Overview
 
-## メモ
++ Set up a batch that changes the number of GKE nodes on a regular basis
 
-+ 使用しているクラスターを定期的に0ノードにする停止するいい感じのスクリプトを作っておく
-+ 応用が聞く感じにしておきたい
+## Architect
 
-## GCP との認証をする
+WIP
+
+## Auth GCP
+
++ GCP login using Web Browser
 
 ```
 gcloud auth login -q
 ```
 
-## 環境変数を入れる
+## Define Variable
+
++ Define Your Variable
 
 ```
 export _project='Your GCP Project ID'
@@ -23,7 +28,7 @@ export _region='asia-northeast1'
 
 ## Create GKE Cluster
 
-+ スクリプトで GKE クラスタを作成する
++ Create Your GKE Cluster using Scripts
 
 ```
 bash ../00_basic-cluster/operate-basic-cluster.sh create ${_project} ${_common} ${_region}
@@ -43,6 +48,7 @@ gcloud beta services enable appengine.googleapis.com
 
 ## Add Permission to Service Account of Cloud build
 
++ Check List of Service Accounts
 
 ```
 gcloud beta iam service-accounts list --project ${_project}
@@ -68,7 +74,7 @@ gcloud beta projects add-iam-policy-binding ${_project} --member=${_cloud_build_
 WIP
 ```
 
-## Source Repository の作成と登録
+## Create and Push Source Repository
 
 + Create Source Repository
 
@@ -106,13 +112,13 @@ gsr         https://source.developers.google.com/p/your-gcp-project-id/r/handson
 gsr         https://source.developers.google.com/p/your-gcp-project-id/r/handson-gke-gsr (push)
 ```
 
-+ Push to GSR
++ Push to Source Repository
 
 ```
 git push gsr master
 ```
 
-## Trigger の作成と実行
+## Create and Run Trigger of Cloud Build
 
 + create Trigger of scale-in 
 
@@ -138,27 +144,26 @@ gcloud beta builds triggers create cloud-source-repositories \
   --project ${_project}
 ```
 
-+ 実行してみる
++ test run trigger
 
 ```
 gcloud beta builds triggers run gke-scale-in  --branch master
 gcloud beta builds triggers run gke-scale-out --branch master
 ```
 
-## Cloud Build の Trigger の ID を調べる
+## Check Trigger ID of Cloud Build
 
-+ Trigger `gke-scale-in` の ID を調べる
++ Check Trigger ID of `gke-scale-in`
 
 ```
 export _scale_in_id=$(gcloud beta builds triggers describe gke-scale-in --project ${_project} | grep id | awk '{print $2}')
 ```
 
-+ Trigger `gke-scale-out` の ID を調べる
++ Check Trigger ID of  `gke-scale-out`
 
 ```
 export _scale_out_id=$(gcloud beta builds triggers describe gke-scale-out --project ${_project} | grep id | awk '{print $2}')
 ```
-
 
 ## Create Topic in Pub/Sub
 
@@ -184,10 +189,9 @@ gcloud beta functions deploy gke-scale \
   --project ${_project}
 ```
 
+## Create and Run Cloud Scheduler Job
 
-## Cloud Scheduler の作成
-
-+ deploy scheduler job of Scalse In
++ Create scheduler job of Scalse In
 
 ```
 gcloud beta scheduler jobs create pubsub gke-scale-in \
@@ -200,7 +204,7 @@ gcloud beta scheduler jobs create pubsub gke-scale-in \
   --project ${_project}
 ```
 
-+ deploy scheduler job of Scalse Out
++ Create scheduler job of Scalse Out
 
 ```
 gcloud beta scheduler jobs create pubsub gke-scale-out \
@@ -230,6 +234,8 @@ gcloud beta scheduler jobs run gke-scale-out --project ${_project}
 gcloud beta scheduler jobs run gke-scale-in --project ${_project}
 ```
 
-## Summary
+## Finally
+
+Degenerate unused resources to reduce costs.
 
 Have fun! :)
