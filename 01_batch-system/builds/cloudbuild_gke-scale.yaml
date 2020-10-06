@@ -1,0 +1,9 @@
+steps:
+  - id: "GKE Node Operation"
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud beta config set project ${_PROJCT_ID}
+        gcloud beta container clusters resize ${_CLUSTER} --zone ${_ZONE} --project ${_PROJCT_ID} --node-pool ${_NODE_POOL} --num-nodes ${_NUM_NODE} -q
