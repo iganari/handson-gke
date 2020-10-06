@@ -6,7 +6,7 @@
  */
 var googleapis = require("googleapis");
 var request = require("request");
-exports.gke_node_scalse = (event, context) => {
+exports.gke_scale = (event, context) => {
   const message = event.data
     ? Buffer.from(event.data, 'base64').toString()
     : 'update start';
