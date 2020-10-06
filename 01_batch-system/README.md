@@ -156,7 +156,7 @@ export _scale_in_id=$(gcloud beta builds triggers describe gke-scale-in --projec
 + Trigger `gke-scale-out` の ID を調べる
 
 ```
-export scale_out_id=$(gcloud beta builds triggers describe gke-scale-out --project ${_project} | grep id | awk '{print $2}')
+export _scale_out_id=$(gcloud beta builds triggers describe gke-scale-out --project ${_project} | grep id | awk '{print $2}')
 ```
 
 
@@ -185,10 +185,10 @@ gcloud beta functions deploy gke_node_scalse \
 
 ## Cloud Scheduler の作成と実行
 
-WIP
++ deploy scheduler job of Scalse In
 
 ```
-gcloud beta scheduler jobs create pubsub gke_node_scalse_in \
+gcloud beta scheduler jobs create pubsub gke-scalse-in \
   --description 'GKE node Scale In' \
   --schedule '0 20 * * *' \
   --time-zone 'Asia/Tokyo' \
@@ -198,8 +198,10 @@ gcloud beta scheduler jobs create pubsub gke_node_scalse_in \
   --project ${_project}
 ```
 
++ deploy scheduler job of Scalse Out
+
 ```
-gcloud beta scheduler jobs create pubsub gke_node_scalse_out \
+gcloud beta scheduler jobs create pubsub gke-scalse-out \
   --description 'GKE node Scale Out' \
   --schedule '0 8 * * *' \
   --time-zone 'Asia/Tokyo' \
@@ -208,3 +210,7 @@ gcloud beta scheduler jobs create pubsub gke_node_scalse_out \
   --attributes "_gcp_pj_id=${_project},_trigger_id=${_scale_out_id}" \
   --project ${_project}
 ```
+
+## GUI から実行してみる
+
+![](./batch-system-01.png)
