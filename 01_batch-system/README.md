@@ -160,9 +160,9 @@ export _scale_out_id=$(gcloud beta builds triggers describe gke-scale-out --proj
 ```
 
 
-## Pub/Sub の Topic を作成
+## Create Topic in Pub/Sub
 
-+ topic の作成
++ Create Topic
 
 ```
 export _topic_name='gke-scale'
@@ -170,12 +170,14 @@ export _topic_name='gke-scale'
 gcloud pubsub topics create ${_topic_name} --project ${_project}
 ```
 
-## Cloud Fucntions の作成
+## Deploy Cloud Fucntions
+
++ Deploy Cloud Functions by specifying the PubSub Topic you just created.
 
 ```
-gcloud beta functions deploy gke_node_scalse \
+gcloud beta functions deploy gke-scale \
   --source=./functions \
-  --entry-point=gke_node_scalse \
+  --entry-point=gke_scale \
   --runtime=nodejs10 \
   --trigger-topic="${_topic_name}" \
   --region ${_region} \
@@ -183,12 +185,12 @@ gcloud beta functions deploy gke_node_scalse \
 ```
 
 
-## Cloud Scheduler の作成と実行
+## Cloud Scheduler の作成
 
 + deploy scheduler job of Scalse In
 
 ```
-gcloud beta scheduler jobs create pubsub gke-scalse-in \
+gcloud beta scheduler jobs create pubsub gke-scale-in \
   --description 'GKE node Scale In' \
   --schedule '0 20 * * *' \
   --time-zone 'Asia/Tokyo' \
@@ -201,7 +203,7 @@ gcloud beta scheduler jobs create pubsub gke-scalse-in \
 + deploy scheduler job of Scalse Out
 
 ```
-gcloud beta scheduler jobs create pubsub gke-scalse-out \
+gcloud beta scheduler jobs create pubsub gke-scale-out \
   --description 'GKE node Scale Out' \
   --schedule '0 8 * * *' \
   --time-zone 'Asia/Tokyo' \
@@ -211,6 +213,23 @@ gcloud beta scheduler jobs create pubsub gke-scalse-out \
   --project ${_project}
 ```
 
-## GUI から実行してみる
++  Check GCP Console
 
 ![](./batch-system-01.png)
+
+
++ Run Schduler of Scale Out
+
+```
+gcloud beta scheduler jobs run gke-scale-out --project ${_project}
+```
+
++ Run Schduler of Scale In
+
+```
+gcloud beta scheduler jobs run gke-scale-in --project ${_project}
+```
+
+## Summary
+
+Have fun! :)
