@@ -59,8 +59,8 @@ gcloud auth configure-docker
 ```
 cd go
 
-docker build . --tag gcr.io/${_project}/handson-gke_hello-world-go:v1
-docker push gcr.io/${_project}/handson-gke_hello-world-go:v1
+docker build . --tag gcr.io/${_project}/${_common}_hello-world-go:v1
+docker push gcr.io/${_project}/${_common}-gke_hello-world-go:v1
 
 cd -
 ```
@@ -70,8 +70,8 @@ cd -
 ```
 cd python
 
-docker build . --tag gcr.io/${_project}/handson-gke_hello-world-python:v1
-docker push gcr.io/${_project}/handson-gke_hello-world-python:v1
+docker build . --tag gcr.io/${_project}/${_common}_hello-world-python:v1
+docker push gcr.io/${_project}/${_common}_hello-world-python:v1
 
 cd -
 ```
