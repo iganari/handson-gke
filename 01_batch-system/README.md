@@ -21,7 +21,7 @@ gcloud auth login -q
 + Define Your Variable
 
 ```
-export _project='Your GCP Project ID'
+export _gcp_pj_id='Your GCP Project ID'
 export _common='handson-gke'
 export _region='asia-northeast1'
 ```
@@ -31,7 +31,7 @@ export _region='asia-northeast1'
 + Create Your GKE Cluster using Scripts
 
 ```
-bash ../00_basic-cluster/operate-basic-cluster.sh create ${_project} ${_common} ${_region}
+bash ../00_basic-cluster/operate-basic-cluster.sh create ${_gcp_pj_id} ${_common} ${_region}
 ```
 
 ## Prepare API
@@ -39,7 +39,7 @@ bash ../00_basic-cluster/operate-basic-cluster.sh create ${_project} ${_common} 
 + Enable API on Project
 
 ```
-gcloud config set project ${_project}
+gcloud config set project ${_gcp_pj_id}
 gcloud beta services enable sourcerepo.googleapis.com
 gcloud beta services enable cloudbuild.googleapis.com
 gcloud beta services enable cloudscheduler.googleapis.com
@@ -51,13 +51,13 @@ gcloud beta services enable appengine.googleapis.com
 + Check List of Service Accounts
 
 ```
-gcloud beta iam service-accounts list --project ${_project}
+gcloud beta iam service-accounts list --project ${_gcp_pj_id}
 ```
 
 + Check Service account email of Cloud Build
 
 ```
-export _cloud_build_sa_email=$(gcloud beta projects get-iam-policy ${_project} --format=json | jq -r '.bindings[] | select(.role == "roles/cloudbuild.builds.builder") | .members[]')
+export _cloud_build_sa_email=$(gcloud beta projects get-iam-policy ${_gcp_pj_id} --format=json | jq -r '.bindings[] | select(.role == "roles/cloudbuild.builds.builder") | .members[]')
 
 echo ${_cloud_build_email}
 ```
@@ -65,7 +65,7 @@ echo ${_cloud_build_email}
 + Add Permission
 
 ```
-gcloud beta projects add-iam-policy-binding ${_project} --member=${_cloud_build_sa_email} --role=roles/container.admin
+gcloud beta projects add-iam-policy-binding ${_gcp_pj_id} --member=${_cloud_build_sa_email} --role=roles/container.admin
 ```
 
 + ReCheck Service account email of Cloud Build
@@ -81,25 +81,25 @@ WIP
 ```
 export _repo_name='handson-gke-gsr'
 
-gcloud beta source repos create ${_repo_name} --project ${_project}
+gcloud beta source repos create ${_repo_name} --project ${_gcp_pj_id}
 ```
 
 + Check Source Repository
 
 ```
-gcloud beta source repos list --project ${_project} | grep ${_repo_name}
+gcloud beta source repos list --project ${_gcp_pj_id} | grep ${_repo_name}
 ```
 ```
 ### Ex.
 
-# gcloud beta source repos list --project ${_project} | grep ${_repo_name}
+# gcloud beta source repos list --project ${_gcp_pj_id} | grep ${_repo_name}
 handson-gke-gsr  'your-gcp-project-id'  https://source.developers.google.com/p/your-gcp-project-id/r/handson-gke-gsr
 ```
 
 + Add git remote repository
 
 ```
-git remote add gsr $(gcloud beta source repos list --project ${_project} | grep ${_repo_name} | awk '{print $3}')
+git remote add gsr $(gcloud beta source repos list --project ${_gcp_pj_id} | grep ${_repo_name} | awk '{print $3}')
 ```
 
 + Check git remote repository
@@ -128,8 +128,8 @@ gcloud beta builds triggers create cloud-source-repositories \
   --name "gke-scale-in" \
   --branch-pattern "^master$" \
   --build-config 01_batch-system/builds/cloudbuild_gke-scale.yaml \
-  --substitutions _NUM_NODE=0,_PROJCT_ID=${_project},_CLUSTER="${_common}-zonal",_ZONE="${_region}-a",_NODE_POOL="${_common}-zonal-nodepool" \
-  --project ${_project}
+  --substitutions _NUM_NODE=0,_PROJCT_ID=${_gcp_pj_id},_CLUSTER="${_common}-zonal",_ZONE="${_region}-a",_NODE_POOL="${_common}-zonal-nodepool" \
+  --project ${_gcp_pj_id}
 ```
 
 + create Trigger of scale-out 
@@ -140,8 +140,8 @@ gcloud beta builds triggers create cloud-source-repositories \
   --name "gke-scale-out" \
   --branch-pattern "^master$" \
   --build-config 01_batch-system/builds/cloudbuild_gke-scale.yaml \
-  --substitutions _NUM_NODE=1,_PROJCT_ID=${_project},_CLUSTER="${_common}-zonal",_ZONE="${_region}-a",_NODE_POOL="${_common}-zonal-nodepool" \
-  --project ${_project}
+  --substitutions _NUM_NODE=1,_PROJCT_ID=${_gcp_pj_id},_CLUSTER="${_common}-zonal",_ZONE="${_region}-a",_NODE_POOL="${_common}-zonal-nodepool" \
+  --project ${_gcp_pj_id}
 ```
 
 + test run trigger
@@ -156,13 +156,13 @@ gcloud beta builds triggers run gke-scale-out --branch master
 + Check Trigger ID of `gke-scale-in`
 
 ```
-export _scale_in_id=$(gcloud beta builds triggers describe gke-scale-in --project ${_project} | grep id | awk '{print $2}')
+export _scale_in_id=$(gcloud beta builds triggers describe gke-scale-in --project ${_gcp_pj_id} | grep id | awk '{print $2}')
 ```
 
 + Check Trigger ID of  `gke-scale-out`
 
 ```
-export _scale_out_id=$(gcloud beta builds triggers describe gke-scale-out --project ${_project} | grep id | awk '{print $2}')
+export _scale_out_id=$(gcloud beta builds triggers describe gke-scale-out --project ${_gcp_pj_id} | grep id | awk '{print $2}')
 ```
 
 ## Create Topic in Pub/Sub
@@ -172,7 +172,7 @@ export _scale_out_id=$(gcloud beta builds triggers describe gke-scale-out --proj
 ```
 export _topic_name='gke-scale'
 
-gcloud pubsub topics create ${_topic_name} --project ${_project}
+gcloud pubsub topics create ${_topic_name} --project ${_gcp_pj_id}
 ```
 
 ## Deploy Cloud Fucntions
@@ -186,7 +186,7 @@ gcloud beta functions deploy gke-scale \
   --runtime=nodejs10 \
   --trigger-topic="${_topic_name}" \
   --region ${_region} \
-  --project ${_project}
+  --project ${_gcp_pj_id}
 ```
 
 ## Create and Run Cloud Scheduler Job
@@ -198,10 +198,10 @@ gcloud beta scheduler jobs create pubsub gke-scale-in \
   --description 'GKE node Scale In' \
   --schedule '0 20 * * *' \
   --time-zone 'Asia/Tokyo' \
-  --topic "projects/${_project}/topics/${_topic_name}" \
+  --topic "projects/${_gcp_pj_id}/topics/${_topic_name}" \
   --message-body 'GKE node Scale In' \
-  --attributes "_gcp_pj_id=${_project},_trigger_id=${_scale_in_id}" \
-  --project ${_project}
+  --attributes "_gcp_pj_id=${_gcp_pj_id},_trigger_id=${_scale_in_id}" \
+  --project ${_gcp_pj_id}
 ```
 
 + Create scheduler job of Scalse Out
@@ -211,10 +211,10 @@ gcloud beta scheduler jobs create pubsub gke-scale-out \
   --description 'GKE node Scale Out' \
   --schedule '0 8 * * *' \
   --time-zone 'Asia/Tokyo' \
-  --topic "projects/${_project}/topics/${_topic_name}" \
+  --topic "projects/${_gcp_pj_id}/topics/${_topic_name}" \
   --message-body 'GKE node Scale Out' \
-  --attributes "_gcp_pj_id=${_project},_trigger_id=${_scale_out_id}" \
-  --project ${_project}
+  --attributes "_gcp_pj_id=${_gcp_pj_id},_trigger_id=${_scale_out_id}" \
+  --project ${_gcp_pj_id}
 ```
 
 +  Check GCP Console
@@ -225,13 +225,13 @@ gcloud beta scheduler jobs create pubsub gke-scale-out \
 + Run Schduler of Scale Out
 
 ```
-gcloud beta scheduler jobs run gke-scale-out --project ${_project}
+gcloud beta scheduler jobs run gke-scale-out --project ${_gcp_pj_id}
 ```
 
 + Run Schduler of Scale In
 
 ```
-gcloud beta scheduler jobs run gke-scale-in --project ${_project}
+gcloud beta scheduler jobs run gke-scale-in --project ${_gcp_pj_id}
 ```
 
 ## Finally

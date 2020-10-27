@@ -13,7 +13,7 @@ gcloud auth login -q
 ## 環境変数を入れる
 
 ```
-export _project='Your GCP Project ID'
+export _gcp_pj_id='Your GCP Project ID'
 export _common='handson-gke'
 export _region='asia-northeast1'
 ```
@@ -23,7 +23,7 @@ export _region='asia-northeast1'
 + Enable API on Project
 
 ```
-gcloud config set project ${_project}
+gcloud config set project ${_gcp_pj_id}
 gcloud beta services enable hogehoge.googleapis.com
 ```
 
@@ -31,7 +31,7 @@ gcloud beta services enable hogehoge.googleapis.com
 ## GKE クラスタの作成
 
 ```
-bash operate-basic-cluster.sh create ${_project} ${_common} ${_region}
+bash operate-basic-cluster.sh create ${_gcp_pj_id} ${_common} ${_region}
 ```
 
 ## GKE との認証
@@ -39,11 +39,11 @@ bash operate-basic-cluster.sh create ${_project} ${_common} ${_region}
 ```
 gcloud beta container clusters get-credentials ${_common}-zonal \
   --zone ${_region}-a \
-  --project ${_project}
+  --project ${_gcp_pj_id}
 ```
 
 ## GKE クラスタの削除
 
 ```
-bash operate-basic-cluster.sh delete ${_project} ${_common} ${_region}
+bash operate-basic-cluster.sh delete ${_gcp_pj_id} ${_common} ${_region}
 ```

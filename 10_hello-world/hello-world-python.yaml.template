@@ -7,7 +7,7 @@ metadata:
 
 ---
 
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: python-deployment
@@ -16,6 +16,9 @@ metadata:
     app: python
 spec:
   replicas: 5
+  selector:
+    matchLabels:
+      app: python
   template:
     metadata:
       labels:
