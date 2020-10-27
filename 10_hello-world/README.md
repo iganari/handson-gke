@@ -35,7 +35,7 @@
 ```
 ### New Env
 
-export _project='Your GCP Project ID'
+export _gcp_pj_id='Your GCP Project ID'
 export _common='handson-gke'
 export _region='asia-northeast1'
 ```
@@ -59,8 +59,8 @@ gcloud auth configure-docker
 ```
 cd go
 
-docker build . --tag gcr.io/${_project}/handson-gke_hello-world-go:v1
-docker push gcr.io/${_project}/handson-gke_hello-world-go:v1
+docker build . --tag gcr.io/${_gcp_pj_id}/${_common}_hello-world-go:v1
+docker push gcr.io/${_gcp_pj_id}/${_common}-gke_hello-world-go:v1
 
 cd -
 ```
@@ -70,8 +70,8 @@ cd -
 ```
 cd python
 
-docker build . --tag gcr.io/${_project}/handson-gke_hello-world-python:v1
-docker push gcr.io/${_project}/handson-gke_hello-world-python:v1
+docker build . --tag gcr.io/${_gcp_pj_id}/${_common}_hello-world-python:v1
+docker push gcr.io/${_gcp_pj_id}/${_common}_hello-world-python:v1
 
 cd -
 ```
@@ -79,7 +79,7 @@ cd -
 + Check Images
 
 ```
-gcloud beta container images list --project ${_project}
+gcloud beta container images list --project ${_gcp_pj_id}
 ```
 
 ## Create GKE Cluster
@@ -87,7 +87,7 @@ gcloud beta container images list --project ${_project}
 + スクリプトで GKE クラスタを作成する
 
 ```
-bash ../00_basic-cluster/operate-basic-cluster.sh create ${_project} ${_common} ${_region}
+bash ../00_basic-cluster/operate-basic-cluster.sh create ${_gcp_pj_id} ${_common} ${_region}
 ```
 
 ## Auth GKE Cluster
@@ -97,7 +97,7 @@ bash ../00_basic-cluster/operate-basic-cluster.sh create ${_project} ${_common} 
 ```
 gcloud beta container clusters get-credentials ${_common}-zonal \
   --zone ${_region}-a \
-  --project ${_project}
+  --project ${_gcp_pj_id}
 ```
 
 ## Create Go Resource
@@ -105,7 +105,7 @@ gcloud beta container clusters get-credentials ${_common}-zonal \
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_project}/g" hello-world-go.yaml.template > hello-world-go.yaml
+sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-go.yaml.template > hello-world-go.yaml
 ```
 
 + Create Go Resource on Cluster
@@ -119,7 +119,7 @@ kubectl create -f hello-world-go.yaml
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_project}/g" hello-world-python.yaml.template > hello-world-python.yaml
+sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-python.yaml.template > hello-world-python.yaml
 ```
 
 + Create Python Resource on Cluster
@@ -133,7 +133,7 @@ kubectl create -f hello-world-python.yaml
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_project}/g" hello-world-mix.yaml.template > hello-world-mix.yaml
+sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-mix.yaml.template > hello-world-mix.yaml
 ```
 
 + Create Go & Python Resource on Cluster
@@ -243,19 +243,19 @@ kubectl delete -f hello-world-mix.yaml
 + コンテナレジストリの確認
 
 ```
-gcloud beta container images list --project ${_project}
+gcloud beta container images list --project ${_gcp_pj_id}
 ```
 
 + コンテナレジストリの中のイメージを削除
 
 ```
-gcloud beta container images delete gcr.io/${_project}/handson-gke_hello-world-go:v1 --project ${_project}
+gcloud beta container images delete gcr.io/${_gcp_pj_id}/handson-gke_hello-world-go:v1 --project ${_gcp_pj_id}
 
-gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_hello-world-python:v1 --project ${_project}
+gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_hello-world-python:v1 --project ${_gcp_pj_id}
 ```
 
 ## Delete GKE Cluster
 
 ```
-bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_project} ${_common} ${_region}
+bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_gcp_pj_id} ${_common} ${_region}
 ```
