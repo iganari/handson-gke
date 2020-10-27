@@ -90,6 +90,26 @@ gcloud beta container images list --project ${_gcp_pj_id}
 bash ../00_basic-cluster/operate-basic-cluster.sh create ${_gcp_pj_id} ${_common} ${_region}
 ```
 
+## Create External IP Address
+
++ Reserving an External IP Address.
+
+```
+gcloud compute addresses create mix-ip-addr \
+    --ip-version=IPV4 \
+    --global \
+    --project ${_gcp_pj_id}
+```
+
++ Check External IP Address.
+
+```
+gcloud compute addresses describe mix-ip-addr \
+    --format="get(address)" \
+    --global \
+    --project ${_gcp_pj_id}
+```
+
 ## Auth GKE Cluster
 
 + 作成したクラスターに認証を通す
