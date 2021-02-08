@@ -95,7 +95,7 @@ bash ../00_basic-cluster/operate-basic-cluster.sh create ${_gcp_pj_id} ${_common
 + Reserving an External IP Address.
 
 ```
-gcloud compute addresses create mix-ip-addr \
+gcloud beta compute addresses create mix-ip-addr \
     --ip-version=IPV4 \
     --global \
     --project ${_gcp_pj_id}
@@ -104,7 +104,7 @@ gcloud compute addresses create mix-ip-addr \
 + Check External IP Address.
 
 ```
-gcloud compute addresses describe mix-ip-addr \
+gcloud beta compute addresses describe mix-ip-addr \
     --format="get(address)" \
     --global \
     --project ${_gcp_pj_id}
@@ -272,6 +272,14 @@ gcloud beta container images list --project ${_gcp_pj_id}
 gcloud beta container images delete gcr.io/${_gcp_pj_id}/handson-gke_hello-world-go:v1 --project ${_gcp_pj_id}
 
 gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_hello-world-python:v1 --project ${_gcp_pj_id}
+```
+
+## Release External IP Address
+
+```
+gcloud beta compute addresses delete handson-gke-ip-addr \
+    --global \
+    --project ${_gcp_pj_id}
 ```
 
 ## Delete GKE Cluster
