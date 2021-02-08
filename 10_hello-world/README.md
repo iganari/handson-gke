@@ -2,7 +2,7 @@
 
 ## 概要
 
-+ namespace を作成し、 Namespace 毎に違うアプリケーションを実行してみる
++ Namespace を作成し、 Namespace 毎に違うアプリケーションを実行してみる
 
 目次
 
@@ -60,7 +60,7 @@ gcloud auth configure-docker
 cd go
 
 docker build . --tag gcr.io/${_gcp_pj_id}/${_common}_hello-world-go:v1
-docker push gcr.io/${_gcp_pj_id}/${_common}-gke_hello-world-go:v1
+docker push gcr.io/${_gcp_pj_id}/${_common}_hello-world-go:v1
 
 cd -
 ```
