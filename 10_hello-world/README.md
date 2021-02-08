@@ -269,15 +269,20 @@ gcloud beta container images list --project ${_gcp_pj_id}
 + コンテナレジストリの中のイメージを削除
 
 ```
-gcloud beta container images delete gcr.io/${_gcp_pj_id}/handson-gke_hello-world-go:v1 --project ${_gcp_pj_id}
+gcloud beta container images delete \
+    gcr.io/${_gcp_pj_id}/${_common}_hello-world-go:v1 \
+    --project ${_gcp_pj_id}
 
-gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_hello-world-python:v1 --project ${_gcp_pj_id}
+gcloud beta container images delete \
+    gcr.io/${_gcp_pj_id}/${_common}_hello-world-python:v1 \
+    --project ${_gcp_pj_id}
 ```
 
 ## Release External IP Address
 
 ```
-gcloud beta compute addresses delete handson-gke-ip-addr \
+gcloud beta compute addresses delete \
+    mix-ip-addr \
     --global \
     --project ${_gcp_pj_id}
 ```
@@ -287,3 +292,7 @@ gcloud beta compute addresses delete handson-gke-ip-addr \
 ```
 bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_gcp_pj_id} ${_common} ${_region}
 ```
+
+## まとめ
+
+Have fan! :)
