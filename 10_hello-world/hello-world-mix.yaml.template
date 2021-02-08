@@ -51,7 +51,7 @@ spec:
     spec:
       containers:
       - name: mix-python-app
-        image: gcr.io/YOUR_PROJECT/handson-gke_hello-world-python:v1
+        image: gcr.io/YOUR_PROJECT/COMMON_hello-world-python:v1
         ports:
         - containerPort: 5000
 
