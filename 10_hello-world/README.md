@@ -2,7 +2,7 @@
 
 ## 概要
 
-+ namespace を作成し、 Namespace 毎に違うアプリケーションを実行してみる
++ Namespace を作成し、 Namespace 毎に違うアプリケーションを実行してみる
 
 目次
 
@@ -60,7 +60,7 @@ gcloud auth configure-docker
 cd go
 
 docker build . --tag gcr.io/${_gcp_pj_id}/${_common}_hello-world-go:v1
-docker push gcr.io/${_gcp_pj_id}/${_common}-gke_hello-world-go:v1
+docker push gcr.io/${_gcp_pj_id}/${_common}_hello-world-go:v1
 
 cd -
 ```
@@ -95,7 +95,7 @@ bash ../00_basic-cluster/operate-basic-cluster.sh create ${_gcp_pj_id} ${_common
 + Reserving an External IP Address.
 
 ```
-gcloud compute addresses create mix-ip-addr \
+gcloud beta compute addresses create mix-ip-addr \
     --ip-version=IPV4 \
     --global \
     --project ${_gcp_pj_id}
@@ -104,7 +104,7 @@ gcloud compute addresses create mix-ip-addr \
 + Check External IP Address.
 
 ```
-gcloud compute addresses describe mix-ip-addr \
+gcloud beta compute addresses describe mix-ip-addr \
     --format="get(address)" \
     --global \
     --project ${_gcp_pj_id}
@@ -125,7 +125,9 @@ gcloud beta container clusters get-credentials ${_common}-zonal \
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-go.yaml.template > hello-world-go.yaml
+cp -a hello-world-go.yaml.template      hello-world-go.yaml
+sed -i "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-go.yaml
+sed -i "s/COMMON/${_common}/g"          hello-world-go.yaml
 ```
 
 + Create Go Resource on Cluster
@@ -139,7 +141,9 @@ kubectl create -f hello-world-go.yaml
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-python.yaml.template > hello-world-python.yaml
+cp -a hello-world-python.yaml.template  hello-world-python.yaml
+sed -i "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-python.yaml
+sed -i "s/COMMON/${_common}/g"          hello-world-python.yaml
 ```
 
 + Create Python Resource on Cluster
@@ -153,7 +157,9 @@ kubectl create -f hello-world-python.yaml
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-mix.yaml.template > hello-world-mix.yaml
+cp -a hello-world-mix.yaml.template     hello-world-mix.yaml
+sed -i "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-mix.yaml
+sed -i "s/COMMON/${_common}/g"          hello-world-mix.yaml
 ```
 
 + Create Go & Python Resource on Cluster
@@ -269,9 +275,22 @@ gcloud beta container images list --project ${_gcp_pj_id}
 + コンテナレジストリの中のイメージを削除
 
 ```
-gcloud beta container images delete gcr.io/${_gcp_pj_id}/handson-gke_hello-world-go:v1 --project ${_gcp_pj_id}
+gcloud beta container images delete \
+    gcr.io/${_gcp_pj_id}/${_common}_hello-world-go:v1 \
+    --project ${_gcp_pj_id}
 
-gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_hello-world-python:v1 --project ${_gcp_pj_id}
+gcloud beta container images delete \
+    gcr.io/${_gcp_pj_id}/${_common}_hello-world-python:v1 \
+    --project ${_gcp_pj_id}
+```
+
+## Release External IP Address
+
+```
+gcloud beta compute addresses delete \
+    mix-ip-addr \
+    --global \
+    --project ${_gcp_pj_id}
 ```
 
 ## Delete GKE Cluster
@@ -279,3 +298,7 @@ gcloud beta container images delete gcr.io/ca-igarashi-gke-sample/handson-gke_he
 ```
 bash ../00_basic-cluster/operate-basic-cluster.sh delete ${_gcp_pj_id} ${_common} ${_region}
 ```
+
+## まとめ
+
+Have fan! :)

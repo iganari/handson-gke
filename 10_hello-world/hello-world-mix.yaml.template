@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: mix-go-app
-        image: gcr.io/YOUR_PROJECT/handson-gke_hello-world-go:v1
+        image: gcr.io/YOUR_PROJECT/COMMON_hello-world-go:v1
         ports:
         - containerPort: 8000
 
@@ -41,6 +41,9 @@ metadata:
     app: mix
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: mix
   template:
     metadata:
       labels:
@@ -48,7 +51,7 @@ spec:
     spec:
       containers:
       - name: mix-python-app
-        image: gcr.io/YOUR_PROJECT/handson-gke_hello-world-python:v1
+        image: gcr.io/YOUR_PROJECT/COMMON_hello-world-python:v1
         ports:
         - containerPort: 5000
 
@@ -90,7 +93,7 @@ spec:
 
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: mix-ingress

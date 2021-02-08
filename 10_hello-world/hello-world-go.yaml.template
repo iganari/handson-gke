@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: gcr.io/YOUR_PROJECT/handson-gke_hello-world-go:v1
+        image: gcr.io/YOUR_PROJECT/COMMON_hello-world-go:v1
         ports:
         - containerPort: 8000
 
