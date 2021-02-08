@@ -125,7 +125,9 @@ gcloud beta container clusters get-credentials ${_common}-zonal \
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-go.yaml.template > hello-world-go.yaml
+cp -a hello-world-go.yaml.template         hello-world-go.yaml
+sed -e -i "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-go.yaml
+sed -e -i "s/COMMON/${_common}/g"          hello-world-go.yaml
 ```
 
 + Create Go Resource on Cluster
@@ -139,7 +141,9 @@ kubectl create -f hello-world-go.yaml
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-python.yaml.template > hello-world-python.yaml
+cp -a hello-world-python.yaml.template     hello-world-python.yaml
+sed -e -i "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-python.yaml
+sed -e -i "s/COMMON/${_common}/g"          hello-world-python.yaml
 ```
 
 + Create Python Resource on Cluster
@@ -153,7 +157,9 @@ kubectl create -f hello-world-python.yaml
 + Create YAML 
 
 ```
-sed "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-mix.yaml.template > hello-world-mix.yaml
+cp -a hello-world-mix.yaml.template        hello-world-mix.yaml
+sed -e -i "s/YOUR_PROJECT/${_gcp_pj_id}/g" hello-world-mix.yaml
+sed -e -i "s/COMMON/${_common}/g"          hello-world-mix.yaml
 ```
 
 + Create Go & Python Resource on Cluster
