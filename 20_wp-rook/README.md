@@ -44,10 +44,12 @@ export          _mysql_user=$(echo -n "wp-admin"                 | base64)
 export        _mysql_passwd=$(echo -n "wjA8wVrsDD3V"             | base64)
 ```
 
+## Secret
+
 + Secret のマニフェストの置換
 
 ```
-cp -a template-secret.yaml        ${_common}-wp-secret.yaml
+cp -a wp-secret.yaml.template     ${_common}-wp-secret.yaml
 sed -i '' "s/_COMMON/${_common}/" ${_common}-wp-secret.yaml
 
 sed -i '' "s/_MYSQL_ROOT_PASSWORD/${_mysql_root_password}/" ${_common}-wp-secret.yaml
@@ -62,16 +64,70 @@ sed -i '' "s/_MYSQL_PASSWORD/${_mysql_passwd}/"             ${_common}-wp-secret
 kubectl apply -f ${_common}-wp-secret.yaml
 ```
 
-
-+ MySQL の StatefulSet のマニフェストの置換
++ StatefulSet のマニフェストの置換
 
 ```
-cp -a template-mysql.yaml            ${_common}-wp-mysql.yaml
+cp -a wp-mysql.yaml.template         ${_common}-wp-mysql.yaml
 sed -i '' "s/_COMMON/${_common}-wp/" ${_common}-wp-mysql.yaml
 ```
+
++ StatefulSet の確認
+
+```
+kubectl get StatefulSet
+```
+```
+### 例
+
+# kubectl get StatefulSet
+NAME                               READY   AGE
+handson-gke-wp-mysql-statefulset   1/1     14m
+```
+
+## MySQL
 
 + MySQL のデプロイ
 
 ```
 kubectl apply -f ${_common}-wp-mysql.yaml
 ```
+
++ MySQL の確認
+
+```
+kubectl get StatefulSet
+```
+```
+### 例
+
+# kubectl get StatefulSet
+NAME                               READY   AGE
+handson-gke-wp-mysql-statefulset   1/1     13m
+```
+
+
+-------------------------------------------------------------------
+
+
+## Rook
+
+WIP
+
+## WordPress
+
+WIP
+
+## Ingress
+
+WIP
+
+
+
+
+
+
+
+
+
+
+
