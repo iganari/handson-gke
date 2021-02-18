@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: _COMMON-mysql-statefulset
+  name: handson-gke-wp-mysql-statefulset
   labels:
     app: wordpress
     layer: mysql
@@ -29,14 +29,14 @@ spec:
           name: mysql
         envFrom:
         - secretRef:
-            name: _COMMON-secret
+            name: handson-gke-wp-secret
         volumeMounts:
-        - name:  _COMMON-mysql-pvc-template
+        - name:  handson-gke-wp-mysql-pvc-template
           mountPath: /var/lib/mysql
           subPath: mysql
   volumeClaimTemplates:
   - metadata:
-      name: _COMMON-mysql-pvc-template
+      name: handson-gke-wp-mysql-pvc-template
       labels:
         app: wordpress
         ayer: mysql
@@ -51,7 +51,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: _COMMON-mysql-service
+  name: handson-gke-wp-mysql-service
   labels:
     app: wordpress
     layer: mysql
