@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: _COMMON-mysql-statefulset
+  labels:
+    app: wordpress
+    layer: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+      layer: mysql
+  serviceName: mysql
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        layer: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0.23
+        imagePullPolicy: Always
+        args:
+          - "--default-authentication-plugin=mysql_native_password"
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: {YOUR MYSQL ROOT PASSWORD}
+        - name: MYSQL_DATABASE
+          value: my_database
+        - name: MYSQL_USER
+          value: my_dbadmin
+        - name: MYSQL_PASSWORD
+          value: {YOUR MYSQL USER PASSWORD}
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name:  _COMMON-mysql-pvc-template
+          mountPath: /var/lib/mysql
+          subPath: mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: _COMMON-mysql-pvc-template
+      labels:
+        app: wordpress
+        ayer: mysql
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 20Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: _COMMON-mysql-service
+  labels:
+    app: wordpress
+    layer: mysql
+spec:
+  type: NodePort
+  ports:
+    - port: 3306
+  selector:
+    app: wordpress
+    layer: mysql
