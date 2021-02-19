@@ -124,10 +124,19 @@ WIP
 
 
 
+---------------------------------------------------------------------
 
+## 削除
 
++ マニフェストファイルにて削除
 
+```
+kubectl delete -f ${_common}-wp-secret.yaml
+kubectl delete -f ${_common}-wp-mysql.yaml
+```
 
++ マニフェストファイルで削除出来ないリソースを削除
 
-
-
+```
+kubectl delete pvc $(kubectl get pvc | grep ${_common}-wp | awk '{print $1}')
+```
