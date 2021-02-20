@@ -33,8 +33,12 @@ docker exec -it local-py /bin/bash
 python3 /app/main.py
 ```
 
-+ コンテナの作り直し
++ Web ブラウザから確認
 
+http://0.0.0.0:8080
+
+
++ コンテナの作り直し
 
 ```
 docker stop local-py && \
