@@ -7,23 +7,33 @@ import datetime
 app = Flask(__name__)
 
 @app.route("/")
-def hello():
-    msg ='Your URL is "{}" .\nFrom Hands On GKE.\nHostName: {}\nIP: {}\nCurrent time: {}\n'.format(request.url, host_name, host_ip, current_time) 
+def root():
 
-    return msg 
+    msg1 = 'From Hands On GKE (https://github.com/iganari/handson-gke)'
+    msg2 = 'Your URL is '     + request.url
+    msg3 = 'HostName is '     + host_name
+    msg4 = 'Internal IP is '  + host_ip
+    msg5 = 'Current time is ' + str(current_time)
+
+    return msg1 + ',\n' + msg2 + ',\n' + msg3 + ',\n' + msg4 + ',\n' + msg5
 
 
 @app.route('/<mypath>')
-def show_path(mypath):
-    msg ='Your URL is "{}" .\nFrom Hands On GKE.\nHostName: {}\nIP: {}\nCurrent time: {}\n'.format(request.url, host_name, host_ip, current_time) 
+def path(mypath):
 
-    return msg 
+    msg1 = 'From Hands On GKE (https://github.com/iganari/handson-gke)'
+    msg2 = 'Your URL is '     + request.url
+    msg3 = 'HostName is '     + host_name
+    msg4 = 'Internal IP is '  + host_ip
+    msg5 = 'Current time is ' + str(current_time)
+
+    return msg1 + ',\n' + msg2 + ',\n' + msg3 + ',\n' + msg4 + ',\n' + msg5
 
 
 if __name__ == "__main__":
+
     host_name    = socket.gethostname()
     host_ip      = socket.gethostbyname(host_name)
     current_time = datetime.datetime.now()
 
     app.run(host='0.0.0.0')
-
