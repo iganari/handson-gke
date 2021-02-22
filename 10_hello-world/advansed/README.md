@@ -6,7 +6,7 @@ Managed Certificate を使用して、 HTTPS で表示出来るようにしま�
 
 ※ ドメインは別途自分で用意する必要があります。
 
-回答例 -> [answer-01](./advansed/answer-01.md)
+回答例 -> [answer-01](./advansed/01/README.md)
 
 ## Q2. 複数のドメインを登録し、出し分ける
 

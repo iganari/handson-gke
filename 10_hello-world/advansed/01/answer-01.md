@@ -59,7 +59,7 @@ Current time: 2020-09-12 05:29:51.250117
 
 + 例
 
-![](./img/answer-01_01.png)
+![](./img/01.png)
 
 ```
 # dig A hello-world-mix.hejda.org +short
@@ -165,11 +165,11 @@ openssl s_client -connect hello-world-mix.hejda.org:443 -showcerts < /dev/null 2
 
 + トップページを確認
 
-![](./img/answer-01_02.png)
+![](./img/02.png)
 
 + 証明書の確認
 
-![](./img/answer-01_03.png)
+![](./img/03.png)
 
 ## まとめ
 
