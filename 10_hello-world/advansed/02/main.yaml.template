@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: COMMON-hw-adv02-python
+  labels:
+    app: python
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      containers:
+      - name: python
+        image: gcr.io/YOUR_PROJECT/COMMON_hello-world-python:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: COMMON-hw-adv02-golang
+  labels:
+    app: golang
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: golang
+  template:
+    metadata:
+      labels:
+        app: golang
+    spec:
+      containers:
+      - name: golang
+        image: gcr.io/YOUR_PROJECT/COMMON_hello-world-go:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: COMMON-hw-adv02-python
+  labels:
+    app: python
+spec:
+  type: NodePort
+  selector:
+    app: python
+  ports:
+  - name: python
+    port: 5080
+    targetPort: 5000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: COMMON-hw-adv02-golang
+  labels:
+    app: golang
+spec:
+  type: NodePort
+  selector:
+    app: golang
+  ports:
+  - name: golang
+    port: 8080
+    targetPort: 8000
+
+---
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: COMMON-hw-adv02-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "COMMON-hw-adv02-ip"
+spec:
+  rules:
+  - host: "py.YOUR_DOMAIN"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/*"
+        backend:
+          serviceName: COMMON-hw-adv02-python
+          servicePort: 5080
+  - host: "go.YOUR_DOMAIN"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/*"
+        backend:
+          serviceName: COMMON-hw-adv02-golang
+          servicePort: 8080
