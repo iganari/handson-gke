@@ -17,7 +17,6 @@
   + [Create Mix Resource](./README.md#create-mix-resource)
   + [Check Browser](./README.md#check-browser)
 + [Advansed](./README.md#advansed)
-  + [HTTPS を設定してみよう](./README.md#q1-https-を設定してみよう)
 + [Delete Resource](./README.md#delete-resource)
   + [Delete K8s Resource](./README.md#delete-k8s-resource)
   + [Delete Container Registry](./README.md#delete-container-registry)
@@ -224,33 +223,9 @@ mix-ingress   *       34.120.35.4   80      64m
 
 # Advansed
 
-## Q1. HTTPS を設定してみよう
+追加のハンズオンも是非やってみて下さい :)
 
-Managed Certificate を使用して、 HTTPS で表示出来るようにしましょう
-
-※ ドメインは別途自分で用意する必要があります。
-
-回答例 -> [answer-01](./advansed/answer-01.md)
-
-## [WIP] Q2. 負荷試験でどこまで耐えられるか見る
-
-たとえば、 Apache Bench を用いて、 Pod が正常にレスポンスを返す CPU, memory を算出する
-
-回答例 -> WIP
-
-## [WIP] Q3. CPU, Memmory の Limit を設定
-
-Q1 の情報を元に、deployment の CPU, Memmory の Limit を設定する 
-
-回答例 -> WIP
-
-## [WIP] Q4. pod のオートスケールを設定
-
-pod のオートスケールを設定し、負荷を掛け、意図したとおりにスケールアップするか確認する
-
-場合に応じて、node のオートスケールも設定する
-
-回答例 -> WIP
+[](./advansed)
 
 # Delete Resource
 
