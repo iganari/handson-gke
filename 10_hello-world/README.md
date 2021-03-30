@@ -262,7 +262,7 @@ Path | スクリーンショット
 
 追加のハンズオンも是非やってみて下さい :)
 
-[](./advansed)
+[Q1. HTTPS を設定する](./advansed/README.md#q1-https-を設定する)
 
 # Delete Resource
 
