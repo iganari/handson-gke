@@ -1,10 +1,12 @@
-# Answer 01
+# Advansed Answer Q1
 
 ## Q1. HTTPS を設定してみよう
 
 Managed Certificate を使用して、 HTTPS で表示出来るようにしましょう
 
 ※ ドメインは別途自分で用意する必要があります。
+
+![](./img/01.png)
 
 ## Answer
 
@@ -68,7 +70,7 @@ Current time is 2021-03-30 04:47:34.402257
 
 + 例
 
-![](./img/01.png)
+![](./img/02.png)
 
 ```
 # dig A handson-gke-10hw-ad01.iganari.xyz +short
@@ -159,7 +161,7 @@ metadata:
   namespace: hello-world-mix
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "mix-ip-addr"
-    kubernetes.io/ingress.allow-http: "false"                 # Block if coming via http
+    kubernetes.io/ingress.allow-http: "false"
     networking.gke.io/managed-certificates: mix-certificate
   labels:
     app: mix
@@ -193,11 +195,11 @@ openssl s_client -connect handson-gke-10hw-ad01.iganari.xyz:443 -showcerts < /de
 
 + トップページを確認
 
-![](./img/02.png)
+![](./img/03.png)
 
 + 証明書の確認
 
-![](./img/03.png)
+![](./img/04.png)
 
 ## まとめ
 
