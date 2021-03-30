@@ -262,7 +262,9 @@ Path | スクリーンショット
 
 追加のハンズオンも是非やってみて下さい :)
 
-[Q1. HTTPS を設定する](./advansed/README.md#q1-https-を設定する)
++ [Q1. HTTPS を設定する](./advansed/README.md#q1-https-を設定する)
++ [[WIP] Q2. 複数のドメインを登録し、出し分ける]
++ [[WIP] Q3. HTTP -> HTTPS のリダイレクト設定を追加する]
 
 # Delete Resource
 
