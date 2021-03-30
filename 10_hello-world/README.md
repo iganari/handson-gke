@@ -80,6 +80,14 @@ cd -
 ```
 gcloud beta container images list --project ${_gcp_pj_id}
 ```
+```
+### 例
+
+# gcloud beta container images list --project ${_gcp_pj_id}
+NAME
+gcr.io/[your_gcp_pj_id]/handson-gke_hello-world-go
+gcr.io/[your_gcp_pj_id]/handson-gke_hello-world-python
+```
 
 ## Create GKE Cluster
 
@@ -87,6 +95,19 @@ gcloud beta container images list --project ${_gcp_pj_id}
 
 ```
 bash ../00_basic-cluster/operate-basic-cluster.sh create ${_gcp_pj_id} ${_common} ${_region}
+```
+
++ 確認
+
+```
+gcloud beta container clusters list --project ${_gcp_pj_id}
+```
+```
+### 例
+
+# gcloud beta container clusters list --project ${_gcp_pj_id}
+NAME               LOCATION           MASTER_VERSION    MASTER_IP     MACHINE_TYPE  NODE_VERSION      NUM_NODES  STATUS
+handson-gke-zonal  asia-northeast1-a  1.18.15-gke.1501  35.200.37.26  e2-medium     1.18.15-gke.1501  3          RUNNING
 ```
 
 ## Create External IP Address
@@ -107,6 +128,15 @@ gcloud beta compute addresses describe mix-ip-addr \
     --format="get(address)" \
     --global \
     --project ${_gcp_pj_id}
+```
+```
+### 例
+
+# gcloud beta compute addresses describe mix-ip-addr \
+>     --format="get(address)" \
+>     --global \
+>     --project ${_gcp_pj_id}
+34.117.244.212
 ```
 
 ## Auth GKE Cluster
@@ -178,8 +208,8 @@ kubectl get service --namespace hello-world-go
 ### Ex.
 
 # kubectl get service --namespace hello-world-go
-NAME         TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)        AGE
-go-service   LoadBalancer   10.251.243.56   34.85.37.228   80:30068/TCP   66m
+NAME         TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)        AGE
+go-service   LoadBalancer   10.251.245.191   34.85.122.94   80:31796/TCP   91s
 ```
 
 ![](./img/hello-world-go-01.png)
@@ -194,8 +224,8 @@ kubectl get service --namespace hello-world-python
 ### Ex.
 
 # kubectl get service --namespace hello-world-python
-NAME             TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)        AGE
-python-service   LoadBalancer   10.251.244.194   35.243.127.218   80:31465/TCP   65m
+NAME             TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)        AGE
+python-service   LoadBalancer   10.251.255.250   34.84.235.233   80:30149/TCP   2m36s
 ```
 
 ![](./img/hello-world-python-01.png)
@@ -210,8 +240,8 @@ kubectl get ingress --namespace hello-world-mix
 ### Ex.
 
 # kubectl get ingress --namespace hello-world-mix
-NAME          HOSTS   ADDRESS       PORTS   AGE
-mix-ingress   *       34.120.35.4   80      64m
+NAME          CLASS    HOSTS   ADDRESS          PORTS   AGE
+mix-ingress   <none>   *       34.117.244.212   80      4m2s
 ```
 
 ![](./img/hello-world-mix-01.png)
