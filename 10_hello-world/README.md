@@ -212,8 +212,9 @@ NAME         TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)        AGE
 go-service   LoadBalancer   10.251.245.191   34.85.122.94   80:31796/TCP   91s
 ```
 
-![](./img/hello-world-go-01.png)
-
+Path | スクリーンショット
+:- | :-
+`/` | ![](./img/hello-world-go-01.png)
 
 + Check Service on hello-world-python
 
@@ -228,8 +229,10 @@ NAME             TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)        
 python-service   LoadBalancer   10.251.255.250   34.84.235.233   80:30149/TCP   2m36s
 ```
 
-![](./img/hello-world-python-01.png)
-![](./img/hello-world-python-02.png)
+Path | スクリーンショット
+:- | :-
+`/` | ![](./img/hello-world-python-01.png)
+`/hoge` | ![](./img/hello-world-python-02.png)
 
 + Check Ingress on hello-world-mix
 
@@ -244,10 +247,14 @@ NAME          CLASS    HOSTS   ADDRESS          PORTS   AGE
 mix-ingress   <none>   *       34.117.244.212   80      4m2s
 ```
 
-![](./img/hello-world-mix-01.png)
-![](./img/hello-world-mix-02.png)
-![](./img/hello-world-mix-03.png)
-![](./img/hello-world-mix-04.png)
+Path | スクリーンショット
+:- | :-
+`/` | ![](./img/hello-world-mix-01.png)
+`/go` | ![](./img/hello-world-mix-02.png)
+`/py` | ![](./img/hello-world-mix-03.png)
+`/hoge` | ![](./img/hello-world-mix-04.png)
+
+
 
 ---> Web Browser で確認出来れば完了です!! :)
 
