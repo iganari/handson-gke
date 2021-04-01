@@ -1,4 +1,4 @@
-# Advansed Answer Q1
+# Advansed Q1 Answer
 
 ## Q1. HTTPS を設定してみよう
 
@@ -150,8 +150,8 @@ spec:
 ```
 
 + 修正後
-  + HTTP を受け付けない設定 `kubernetes.io/ingress.allow-http: "false"`
-  + ManagedCertificate `networking.gke.io/managed-certificates: mix-certificate`
+  + HTTP を受け付けない設定を追加 `kubernetes.io/ingress.allow-http: "false"`
+  + ManagedCertificate を追加 `networking.gke.io/managed-certificates: mix-certificate`
 
 ```
 apiVersion: extensions/v1beta1
@@ -202,6 +202,8 @@ openssl s_client -connect handson-gke-10hw-ad01.iganari.xyz:443 -showcerts < /de
 ![](./img/04.png)
 
 ## まとめ
+
+Q3 にて、HTTPS を設定が出来ました
 
 Have fan !! :)
  
