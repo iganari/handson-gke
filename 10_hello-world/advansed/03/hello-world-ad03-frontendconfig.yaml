@@ -2,6 +2,7 @@ apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
   name: mix-frontend-config
+  namespace: hello-world-mix
 spec:
   redirectToHttps:
     enabled: true
