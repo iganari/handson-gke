@@ -10,10 +10,9 @@ Managed Certificate を使用して、 HTTPS で表示出来るようにしま�
 
 ## Q2. 複数のドメインを登録し、出し分ける
 
-Managed Certificate を使用して、 HTTPS で表示出来るようにしましょう
+PATH で振り分けていたバックエンドをドメインで振り分けるようにしましょう
 
 ※ Q1 をクリアしている必要があります。
-
 
 回答例 -> [02](./02/README.md)
 
@@ -33,19 +32,23 @@ HTTP で来たトラフィックを HTTPS にリダイレクトする設定を�
 
 
 
-## [WIP] Q2. 負荷試験でどこまで耐えられるか見る
+## [WIP] Q?. 負荷試験でどこまで耐えられるか見る
 
 たとえば、 Apache Bench を用いて、 Pod が正常にレスポンスを返す CPU, memory を算出する
 
 回答例 -> WIP
 
-## [WIP] Q3. CPU, Memmory の Limit を設定
+## [WIP] Q?. CPU, Memmory の Limit を設定
+
+request の話
 
 Q1 の情報を元に、deployment の CPU, Memmory の Limit を設定する 
 
 回答例 -> WIP
 
-## [WIP] Q4. pod のオートスケールを設定
+## [WIP] Q?. pod のオートスケールを設定
+
+HPA の話
 
 pod のオートスケールを設定し、負荷を掛け、意図したとおりにスケールアップするか確認する
 

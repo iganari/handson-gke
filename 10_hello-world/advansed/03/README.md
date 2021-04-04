@@ -1,4 +1,4 @@
-# [WIP] Advansed Q3 Answer
+# Advansed Q3 Answer
 
 ## Q3. HTTP -> HTTPS のリダイレクト設定を追加する
 
@@ -30,7 +30,9 @@ HTTP で来たトラフィックを HTTPS にリダイレクトする設定を�
 
 Q1 では 80 ポートを塞ぎましたが、再度確認しておきます。
 
-![](./hoge)
+### GCP コンソールから確認
+
+![](./img/02.png)
 
 ### http の場合
 
@@ -47,7 +49,7 @@ Date: Thu, 01 Apr 2021 00:36:54 GMT
 
 + Web ブラウザによる確認
 
-![](./img/02.png)
+![](./img/03.png)
 
 ### https の場合
 
@@ -66,11 +68,11 @@ alt-svc: clear
 
 + Web ブラウザによる確認
 
-![](./img/03.png)
+![](./img/04.png)
 
 ### GCP コンソールから確認 
 
-![](./img/04.png)
+![](./img/05.png)
 
 ## FrontendConfig の設定追加
 
@@ -157,7 +159,7 @@ kubectl apply -f hello-world-mix.yaml
 
 ## 設定反映後の LB を確認
 
-### GCP コンソール
+### GCP コンソールから確認
 
 + HTTP と HTTPS が存在している
 
