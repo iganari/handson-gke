@@ -144,17 +144,11 @@ spec:
           servicePort: 5080
 ```
 
-
-
 + 反映
 
 ```
 kubectl apply -f hello-world-mix.yaml
 ```
-
-
-
-
 
 ## 確認
 
